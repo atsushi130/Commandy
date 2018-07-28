@@ -11,4 +11,8 @@ public final class Arguments {
     
     public static let shared = Arguments()
     private let arguments: [String] = ProcessInfo.processInfo.arguments.dropFirst().map { $0 }
+    
+    public var command: String? {
+        return self.arguments.first
+    }
 }
