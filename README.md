@@ -1,3 +1,17 @@
-# Commandy
+<p align="center">
+    <h1 align="center">Commandy</h1>
+</p1>
 
-A description of this package.
+<p align="center"><i>Commandy is Cli framework.</i></p>
+
+<p align="center">
+    <a href=".license-mit"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a> 
+</p>
+
+## Installation via Swift Package Manager
+```swift
+.Package(url: "https://github.com/atsushi130/Commandy", majorVersion: 1),
+```
+
+## License
+Commandy is available under the MIT license. See the [LICENSE file](https://github.com/atsushi130/Commandy/blob/master/license-mit).
