@@ -20,5 +20,9 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
     public var command: String {
         return self.rawValue.replacingOccurrences(of: "([A-Z])", with: "-$1", options: .regularExpression).lowercased()
     }
+    
+    public var shortCommand: String? {
+        return nil
+    }
 }
 
