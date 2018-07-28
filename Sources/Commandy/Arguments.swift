@@ -15,4 +15,8 @@ public final class Arguments {
     public var command: String? {
         return self.arguments.first
     }
+    
+    public var options: [String] {
+        return self.arguments.filter { $0.contains("-") }
+    }
 }
