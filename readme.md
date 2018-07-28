@@ -10,7 +10,7 @@
 
 ## Installation via Swift Package Manager
 ```swift
-.Package(url: "https://github.com/atsushi130/Commandy", majorVersion: 1),
+.package(url: "https://github.com/atsushi130/Commandy", from: "1.0.0"),
 ```
 
 ## License
