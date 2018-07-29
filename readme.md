@@ -11,11 +11,39 @@
 ## Usage
 
 ### Implement Command
+
+**non option**
 ```swift
-struct Commit: Commandy.Command {
+struct Stash: Commandy.Command {
     static func run() throws {
-        guard let argument = Commandy.Arguments.shared[1] else { throw ArgumentNotFoundError() }
-        print("git commit \(argument)")
+        print("git stash")
+    }
+}
+```
+
+**option**
+```swift
+enum Commit: String, Command {
+
+    case message
+    case allowEmpty
+    
+    var shortOption: String? {
+        switch self {
+        case .message: return "m"
+        default:       return nil
+        }
+    }
+
+    static func run() throws {
+        let matchOptions = Commit.matchOptions
+        switch matchOptions {
+        case _ where matchOptions[.message]:
+            print("git commit -m")
+        case _ where matchOptions[.allowEmpty, .message]:
+            print("git commit --allow-empty -m")
+        default: break
+        }
     }
 }
 ```
@@ -26,14 +54,12 @@ import Commandy
 enum Git: String, Commandy.Cli {
 
     case commit
-    case push
-    case add
+    case stash
 
     func run() throws {
         switch self {
         case .commit: try Commit.run()
-        case .push:   try Push.run()
-        case .add:    try Add.run()
+        case .stash:  try Stash.run()
         }
     }
 }
@@ -44,6 +70,17 @@ enum Git: String, Commandy.Cli {
 try Git()?.run()
 ```
 
+### Arguments
+```swift
+❯ git commit
+let command = Arguments.cached.command // Optional("commit")
+
+❯ git commit -m hello_world
+let nonOptionArguments = Arguments.cached.nonOptionArguments.first // Optional("hello_world")
+
+❯ git commit --allow-empty -m hello_world
+let options = Arguments.cached.options // ["--allow-empty", "-m"]
+```
 
 ## Installation via Swift Package Manager
 ```swift
