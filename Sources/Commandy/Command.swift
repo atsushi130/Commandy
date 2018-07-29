@@ -8,32 +8,54 @@
 import Foundation
 
 public protocol Command: CaseIterable {
-    func run() throws
+    static var matchOptions: [Self] { get }
+    var shortOption: String? { get }
+    static func run() throws
+}
+
+extension Command {
+    
+    static var matchOptions: [Self] {
+        return []
+    }
+    
+    var shortOption: String? {
+        return nil
+    }
 }
 
 public extension Command where Self: RawRepresentable, Self.RawValue == String {
     
     public var option: String {
         let option = self.rawValue.replacingOccurrences(of: "([A-Z])", with: "-$1", options: .regularExpression).lowercased()
-        let splitedOption = option.split(separator: "-")
+        return "--" + option
+    }
+    
+    static var matchOptions: [Self] {
         
-        if splitedOption.count >= 2 {
-            return "--" + option
-        } else {
-            return "-" + option
-        }
-    }
-    
-    static var command: Self? {
-        return self.options.first
-    }
-    
-    static var options: [Self] {
         let options = Arguments.shared.options
-        return Self.allCases.filter { `case` in
-            return options.contains(`case`.option)
+        let matchOptions = Self.allCases.filter { `case` in
+            if let shortOption = `case`.shortOption {
+                return options.contains(`case`.option) || options.contains("-" + shortOption)
+            } else {
+                return options.contains(`case`.option)
+            }
         }
+        
+        return matchOptions.count == options.count ? matchOptions : []
     }
 }
 
-
+extension Collection where Iterator.Element: Command, Iterator.Element: Equatable {
+    
+    func contains(_ elements: [Iterator.Element]) -> Bool {
+        let result = elements.filter { element in
+            return self.contains(element)
+        }
+        return result.count == elements.count
+    }
+    
+    subscript(_ elements: Iterator.Element...) -> Bool {
+        return self.contains(elements) && self.count == elements.count
+    }
+}
