@@ -26,3 +26,9 @@ extension CaseIterable where Self: Hashable {
         return Array(self.iterator)
     }
 }
+
+extension CaseIterable {
+    public static var allCases: [Self] {
+        return []
+    }
+}

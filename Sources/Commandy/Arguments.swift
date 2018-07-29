@@ -9,7 +9,7 @@ import Foundation
 
 public final class Arguments {
     
-    public static let shared = Arguments()
+    public static let cached = Arguments()
     private let arguments: [String] = ProcessInfo.processInfo.arguments.dropFirst().map { $0 }
     
     public subscript(index: Int) -> String? {
@@ -23,5 +23,9 @@ public final class Arguments {
     
     public var options: [String] {
         return self.arguments.filter { $0.contains("-") }
+    }
+    
+    public var nonOptionArguments: [String] {
+        return self.arguments.filter { !$0.contains("-") }.dropFirst().map { $0 }
     }
 }

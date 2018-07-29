@@ -26,7 +26,7 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
     
     public init?() {
         
-        guard let command = Arguments.shared.command else { return nil }
+        guard let command = Arguments.cached.command else { return nil }
         
         let matches = Self.allCases.filter { `case` in
             return `case`.command == command || `case`.shortCommand  == command
@@ -36,4 +36,3 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
         self = matchCase
     }
 }
-
