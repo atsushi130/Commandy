@@ -41,21 +41,45 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
 enum Git: String, Cli {
     
     case commit
+    case stash
     
     func run() throws {
-        try Commit.command?.run()
+        switch self {
+        case .commit: try Commit.run()
+        case .stash:  try Stash.run()
+        }
     }
 }
 
 enum Commit: String, Command {
-    
-    case m
-    case allowEmpty
 
-    func run() throws {
+    case message
+    case allowEmpty
+    
+    var shortOption: String? {
         switch self {
-        case .m:          print("git commit -m")
-        case .allowEmpty: print("git commit --allow-empty")
+        case .message: return "m"
+        default:       return nil
         }
+    }
+
+    static func run() throws {
+        let matchOptions = Commit.matchOptions
+        switch matchOptions {
+        case _ where matchOptions[.message]:
+            print("git commit -m")
+        case _ where matchOptions[.allowEmpty, .message]:
+            print("git commit --allow-empty -m")
+        default: break
+        }
+    }
+}
+
+struct Stash: Command {
+    static func run() throws {
+        guard let argument = Arguments.shared.nonOptionArguments.first else {
+            return print("git stash")
+        }
+        print("git stash \(argument)")
     }
 }
