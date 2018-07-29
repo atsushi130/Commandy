@@ -26,8 +26,3 @@ extension CaseIterable where Self: Hashable {
         return Array(self.iterator)
     }
 }
-
-enum Test: CaseIterable {
-    case test1
-    case test2
-}
