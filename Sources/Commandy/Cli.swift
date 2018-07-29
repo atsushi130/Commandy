@@ -7,10 +7,9 @@
 
 import Foundation
 
-public protocol Cli {
+public protocol Cli: CaseIterable {
     var command: String { get }
     var shortCommand: String? { get }
-    static var allCases: [Self] { get }
     func run() throws
     init?()
 }
@@ -36,6 +35,5 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
         guard let matchCase = matches.first else { return nil }
         self = matchCase
     }
-
 }
 
