@@ -50,7 +50,6 @@ enum Commit: String, Command {
 
 ### Implement Cli
 ```swift
-import Commandy
 enum Git: String, Commandy.Cli {
 
     case commit
