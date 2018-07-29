@@ -24,4 +24,8 @@ public final class Arguments {
     public var options: [String] {
         return self.arguments.filter { $0.contains("-") }
     }
+    
+    public var nonOptionArguments: [String] {
+        return self.arguments.filter { !$0.contains("-") }.dropFirst().map { $0 }
+    }
 }
