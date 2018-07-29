@@ -13,13 +13,13 @@ public protocol Command: CaseIterable {
     static func run() throws
 }
 
-extension Command {
+public extension Command {
     
-    static var matchOptions: [Self] {
+    public static var matchOptions: [Self] {
         return []
     }
     
-    var shortOption: String? {
+    public var shortOption: String? {
         return nil
     }
 }
@@ -31,7 +31,7 @@ public extension Command where Self: RawRepresentable, Self.RawValue == String {
         return "--" + option
     }
     
-    static var matchOptions: [Self] {
+    public static var matchOptions: [Self] {
         
         let options = Arguments.cached.options
         let matchOptions = Self.allCases.filter { `case` in
@@ -46,16 +46,16 @@ public extension Command where Self: RawRepresentable, Self.RawValue == String {
     }
 }
 
-extension Collection where Iterator.Element: Command, Iterator.Element: Equatable {
+public extension Collection where Iterator.Element: Command, Iterator.Element: Equatable {
     
-    func contains(_ elements: [Iterator.Element]) -> Bool {
+    public func contains(_ elements: [Iterator.Element]) -> Bool {
         let result = elements.filter { element in
             return self.contains(element)
         }
         return result.count == elements.count
     }
     
-    subscript(_ elements: Iterator.Element...) -> Bool {
+    public subscript(_ elements: Iterator.Element...) -> Bool {
         return self.contains(elements) && self.count == elements.count
     }
 }
