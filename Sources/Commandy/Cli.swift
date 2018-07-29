@@ -37,3 +37,25 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
     }
 }
 
+
+enum Git: String, Cli {
+    
+    case commit
+    
+    func run() throws {
+        try Commit.command?.run()
+    }
+}
+
+enum Commit: String, Command {
+    
+    case m
+    case allowEmpty
+
+    func run() throws {
+        switch self {
+        case .m:          print("git commit -m")
+        case .allowEmpty: print("git commit --allow-empty")
+        }
+    }
+}
