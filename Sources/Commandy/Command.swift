@@ -33,7 +33,7 @@ public extension Command where Self: RawRepresentable, Self.RawValue == String {
     
     static var matchOptions: [Self] {
         
-        let options = Arguments.shared.options
+        let options = Arguments.cached.options
         let matchOptions = Self.allCases.filter { `case` in
             if let shortOption = `case`.shortOption {
                 return options.contains(`case`.option) || options.contains("-" + shortOption)

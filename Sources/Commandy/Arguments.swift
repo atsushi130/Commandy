@@ -9,7 +9,7 @@ import Foundation
 
 public final class Arguments {
     
-    public static let shared = Arguments()
+    public static let cached = Arguments()
     private let arguments: [String] = ProcessInfo.processInfo.arguments.dropFirst().map { $0 }
     
     public subscript(index: Int) -> String? {

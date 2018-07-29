@@ -26,7 +26,7 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
     
     public init?() {
         
-        guard let command = Arguments.shared.command else { return nil }
+        guard let command = Arguments.cached.command else { return nil }
         
         let matches = Self.allCases.filter { `case` in
             return `case`.command == command || `case`.shortCommand  == command
@@ -77,7 +77,7 @@ enum Commit: String, Command {
 
 struct Stash: Command {
     static func run() throws {
-        guard let argument = Arguments.shared.nonOptionArguments.first else {
+        guard let argument = Arguments.cached.nonOptionArguments.first else {
             return print("git stash")
         }
         print("git stash \(argument)")
