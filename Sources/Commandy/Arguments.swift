@@ -22,10 +22,10 @@ public final class Arguments {
     }
     
     public var options: [String] {
-        return self.arguments.filter { $0.contains("-") }
+        return self.arguments.filter { $0.hasPrefix("-") }
     }
     
     public var nonOptionArguments: [String] {
-        return self.arguments.filter { !$0.contains("-") }.dropFirst().map { $0 }
+        return self.arguments.filter { !$0.hasPrefix("-") }.dropFirst().map { $0 }
     }
 }
