@@ -11,7 +11,7 @@ public protocol Cli: CaseIterable {
     var command: String { get }
     var shortCommand: String? { get }
     func run() throws
-    init?()
+    init() throws
 }
 
 public extension Cli where Self: RawRepresentable, Self.RawValue == String {
@@ -24,15 +24,15 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
         return nil
     }
     
-    public init?() {
+    public init() throws {
         
-        guard let command = Arguments.cached.command else { return nil }
+        guard let command = Arguments.cached.command else { throw CommandyError.commandNotFound }
         
         let matches = Self.allCases.filter { `case` in
             return `case`.command == command || `case`.shortCommand  == command
         }
         
-        guard let matchCase = matches.first else { return nil }
+        guard let matchCase = matches.first else { throw CommandyError.commandNotFound }
         self = matchCase
     }
 }

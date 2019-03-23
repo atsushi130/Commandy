@@ -14,7 +14,7 @@
 
 **non option**
 ```swift
-struct Stash: Commandy.Command {
+enum Stash: Command {
     static func run() throws {
         print("git stash")
     }
@@ -72,7 +72,7 @@ enum Git: String, Commandy.Cli {
 
 ### Running
 ```swift
-try Git()?.run()
+try Git().run()
 ```
 
 ### Arguments

@@ -5,7 +5,9 @@
 //  Created by Atsushi Miyake on 2018/07/28.
 //
 
-struct Stash: Command {
+import Commandy
+
+enum Stash: Command {
     static func run() throws {
         return print("git stash")
     }
