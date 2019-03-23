@@ -49,6 +49,7 @@ enum Commit: String, Command {
 ```
 
 Analysis method of command options is as follows:
+
 |definition|prefix|separator|example word|analyzed|
 |---|---|---|---|---|
 |single-word|`-`||message|-message|
