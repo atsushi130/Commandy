@@ -48,6 +48,12 @@ enum Commit: String, Command {
 }
 ```
 
+Analysis method of command options is as follows:
+|definition|prefix|separator|example word|analyzed|
+|---|---|---|---|---|
+|single-word|`-`||message|-message|
+|multiple-word|`--`|`-`|allowEmpty|--allow-empty|
+
 ### Implement Cli
 ```swift
 enum Git: String, Commandy.Cli {
