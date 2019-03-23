@@ -66,7 +66,7 @@ enum Git: String, Commandy.Cli {
 
 ### Running
 ```swift
-try Git()?.run()
+try Git().run()
 ```
 
 ### Arguments
