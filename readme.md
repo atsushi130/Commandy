@@ -14,7 +14,7 @@
 
 **non option**
 ```swift
-struct Stash: Commandy.Command {
+enum Stash: Command {
     static func run() throws {
         print("git stash")
     }
