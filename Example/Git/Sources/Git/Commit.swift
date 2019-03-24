@@ -9,6 +9,8 @@ import Commandy
 
 enum Commit: String, Command {
 
+    typealias Dependency = Void
+
     case message
     case allowEmpty
 

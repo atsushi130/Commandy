@@ -8,6 +8,9 @@
 import Commandy
 
 enum Stash: Command {
+
+    typealias Dependency = Void
+
     static func run() throws {
         return print("git stash")
     }

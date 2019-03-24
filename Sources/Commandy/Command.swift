@@ -8,9 +8,16 @@
 import Foundation
 
 public protocol Command: CaseIterable {
+    associatedtype Dependency
     static var matchOptions: [Self] { get }
     var shortOption: String? { get }
+    static func run(dependency: Dependency) throws
     static func run() throws
+}
+
+public extension Command {
+    public static func run(dependency: Dependency) throws {}
+    public static func run() throws {}
 }
 
 public extension Command {
