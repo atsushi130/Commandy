@@ -14,7 +14,11 @@ public protocol Command: CaseIterable {
 }
 
 public extension Command {
-    
+
+    public var name: String {
+        return String(describing: type(of: Self.self)).lowercased().kebabcased()
+    }
+
     public static var matchOptions: [Self] {
         return []
     }
