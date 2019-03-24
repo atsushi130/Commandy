@@ -9,19 +9,18 @@ import Foundation
 
 public protocol Cli: CaseIterable {
     var command: String { get }
-    var shortCommand: String? { get }
     func run() throws
     init() throws
 }
 
 public extension Cli where Self: RawRepresentable, Self.RawValue == String {
-    
-    public var command: String {
-        return self.rawValue.replacingOccurrences(of: "([A-Z])", with: "-$1", options: .regularExpression).lowercased()
+
+    public static var name: String {
+        return String(describing: self).lowercased().kebabcased()
     }
-    
-    public var shortCommand: String? {
-        return nil
+
+    public var command: String {
+        return self.rawValue.kebabcased()
     }
     
     public init() throws {
@@ -29,7 +28,7 @@ public extension Cli where Self: RawRepresentable, Self.RawValue == String {
         guard let command = Arguments.cached.command else { throw CommandyError.commandNotFound }
         
         let matches = Self.allCases.filter { `case` in
-            return `case`.command == command || `case`.shortCommand  == command
+            return `case`.command == command
         }
         
         guard let matchCase = matches.first else { throw CommandyError.commandNotFound }
