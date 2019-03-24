@@ -52,7 +52,7 @@ Analysis method of command options is as follows:
 
 |definition|prefix|separator|example word|analyzed|
 |---|---|---|---|---|
-|single-word|`-`||message|-message|
+|single-word|`--`||message|--message|
 |multiple-word|`--`|`-`|allowEmpty|--allow-empty|
 
 ### Implement Cli
