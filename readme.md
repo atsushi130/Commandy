@@ -5,6 +5,7 @@
 <p align="center"><i>Commandy is Cli framework.</i></p>
 
 <p align="center">
+    <img src="https://img.shields.io/badge/Swift-5-ffac45.svg">
     <a href=".license-mit"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a> 
 </p>
 
