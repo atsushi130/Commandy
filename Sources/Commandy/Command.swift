@@ -15,27 +15,27 @@ public protocol Command: CaseIterable {
 
 public extension Command {
 
-    public var name: String {
+    var name: String {
         return String(describing: type(of: Self.self)).lowercased().kebabcased()
     }
 
-    public static var matchOptions: [Self] {
+    static var matchOptions: [Self] {
         return []
     }
     
-    public var shortOption: String? {
+    var shortOption: String? {
         return nil
     }
 }
 
 public extension Command where Self: RawRepresentable, Self.RawValue == String {
     
-    public var option: String {
+    var option: String {
         let option = self.rawValue.replacingOccurrences(of: "([A-Z])", with: "-$1", options: .regularExpression).lowercased()
         return "--" + option
     }
     
-    public static var matchOptions: [Self] {
+    static var matchOptions: [Self] {
         
         let options = Arguments.cached.options
         let matchOptions = Self.allCases.filter { `case` in
@@ -52,14 +52,14 @@ public extension Command where Self: RawRepresentable, Self.RawValue == String {
 
 public extension Collection where Iterator.Element: Command, Iterator.Element: Equatable {
     
-    public func contains(_ elements: [Iterator.Element]) -> Bool {
+    func contains(_ elements: [Iterator.Element]) -> Bool {
         let result = elements.filter { element in
             return self.contains(element)
         }
         return result.count == elements.count
     }
     
-    public subscript(_ elements: Iterator.Element...) -> Bool {
+    subscript(_ elements: Iterator.Element...) -> Bool {
         return self.contains(elements) && self.count == elements.count
     }
 }

@@ -15,15 +15,15 @@ public protocol Cli: CaseIterable {
 
 public extension Cli where Self: RawRepresentable, Self.RawValue == String {
 
-    public static var name: String {
+    static var name: String {
         return String(describing: self).lowercased().kebabcased()
     }
 
-    public var command: String {
+    var command: String {
         return self.rawValue.kebabcased()
     }
     
-    public init() throws {
+    init() throws {
         
         guard let command = Arguments.cached.command else { throw CommandyError.commandNotFound }
         
